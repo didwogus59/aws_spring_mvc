@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>data list</title>
+</head>
+<body>
+    
+    <p> data list </p>
+    
+    <p>-------------------------------------------</p>
+        <tr th:each = "test : ${testList}">
+            <a th:href="@{/mongoDB/{id}(id=${test.id})}" class="btn btn-primary" th:text="${test.title}"/>
+            <p>-------------------------------------------</p>    
+        </tr>
+
+    <p> new data </p>
+        <form method = "POST">
+            <input type = "hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <p>제목 : <input type="text" name = "title" value = "test title"></p>
+            <p>내용 : <input type="text" name = "data" value = "test data"> </p>
+            <input type="submit">
+        </form>
+    <p>-------------------------------------------</p>    
+    <a href = "/">back home</a>
+</body>
+</html> 

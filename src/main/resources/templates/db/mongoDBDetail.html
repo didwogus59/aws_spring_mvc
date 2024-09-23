@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>data detail</title>
+</head>
+<body>
+    
+    
+    <p>-------------------------------------------</p>
+
+    <p th:text="|Title : ${detail.title}|" />
+    <p>-------------------------------------------</p>    
+    <p th:text="|Data : ${detail.data}|" />
+    <p>-------------------------------------------</p>
+    <p th:text="|Writer : ${detail.user}|" />
+    <p>-------------------------------------------</p>
+
+    <p> update data </p>
+        <form method = "POST">
+            <input type = "hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <p>제목 : <input type="text" name = "title" value = "update title"></p>
+            <p>내용 : <input type="text" name = "data" value = "update data"> </p>
+            <input type="submit">
+        </form>
+    <p>-------------------------------------------</p>  
+    <form method = "POST" th:action = "@{/mongoDB/{id}/delete(id=${detail.id})}">
+        <input type = "hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type = "submit" value="delete">Delete</button>
+    </form>
+    
+    <p>-------------------------------------------</p> 
+    <a href = "/">back home</a>
+    <p>-------------------------------------------</p> 
+    <form method = "POST" th:action = "@{/mongoDB/{id}/child(id=${detail.id})}">
+        <input type = "hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <p>내용 : <input type="text" name = "data" value = "child"> </p>
+        <input type = "submit">
+    </form>
+    <p>-------------------------------------------</p> 
+    <tr th:each = "test : ${childList}">
+        <p th:text="${test.data}">
+        <p>-------------------------------------------</p>    
+    </tr>
+</body>
+</html> 

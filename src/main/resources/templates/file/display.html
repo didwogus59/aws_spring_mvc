@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"></html>
+<head>
+    <meta charset="UTF-8">
+    <title>Image Display</title>
+</head>
+<body>
+    <h2>이미지 표시</h2>
+    <img  th:src="@{'data:image/jpeg;base64,'+${image}}" />
+</body>
+</html>

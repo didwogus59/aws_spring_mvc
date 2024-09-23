@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>data list</title>
+</head>
+<body>
+    
+    <p> image list </p>
+    
+    <p>-------------------------------------------</p>
+        <tr th:each = "image : ${list}">
+            <a th:href="@{/image/show/{id}(id=${image.getId()})}" class="btn btn-primary" th:text="${image.getId()}"/>
+            <p>-------------------------------------------</p>    
+        </tr>
+    <p>-------------------------------------------</p>    
+    <a href = "/">back home</a>
+</body>
+</html> 

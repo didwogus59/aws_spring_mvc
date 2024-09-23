@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+</head>
+
+<body>
+  <input type="text" id="username" placeholder="Username"><br>
+  <input type="text" id="fromS" placeholder="From Server"><br>
+  <button id="join-btn">JOIN</button>
+  <script>
+    const stompClient = new StompJs.Client({
+      brokerURL: 'wss://3.36.90.253:8080/endpoint'
+    });
+    console.log("1");
+    stompClient.onConnect = (frame) => {
+      console.log('Connected: ' + frame);
+      console.log("2")
+      stompClient.subscribe('/sub/test1', (test) => {
+        console.log("subscribe");
+        document.getElementById("fromS").value = test.body;
+      });
+    }
+    
+    stompClient.activate();
+    console.log("3")
+    document.getElementById("join-btn").addEventListener("click", function () {
+      console.log("4")
+      let username = document.getElementById("username").value;
+      console.log(username);
+      stompClient.publish({
+        destination: "/pub/test1",
+        body: JSON.stringify({'data': username})
+      });
+      console.log("5")
+    })
+  </script>
+</body>
+
+</html>

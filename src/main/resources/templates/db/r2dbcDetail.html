@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>data detail</title>
+    <script type="text/javascript" src="/r2dbcDetail.js" ></script>
+</head>
+<body>
+    <p>-------------------------------------------</p>
+
+    <p id = "title"></p>
+    <p>-------------------------------------------</p>    
+    <p id = "data"></p>
+    <p>-------------------------------------------</p>
+    <p id = "user"></p>
+    <p>-------------------------------------------</p>
+    <input type="hidden" id = "id" th:value="${id}">
+    <p> update data </p>
+        <p>제목 : <input type="text" name = "title" id = "update_title" value = "update title"></p>
+        <p>내용 : <input type="text" name = "data" id = "update_data" value = "update data"> </p>
+        <button id = "update_bt" type = "submit"  value="submit">update</button>
+    <p>-------------------------------------------</p>
+    <button id = "delete_bt" type = "submit" value="delete">Delete</button>
+    <p>-------------------------------------------</p> 
+    <a href = "/">back home</a>
+    <p>-------------------------------------------</p>
+    <ul id="child-list"></ul>
+</body>
+</html> 

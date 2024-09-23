@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <title>homepage</title>
+</head>
+
+<body>
+  <p th:text="|User : ${name}|"></p>
+  <div th:if = "${type == 'jwt'}">
+    <a href="/user/logout/jwt" class="btn btn-primary">jwt logout</a><br>
+  </div>
+  <br>
+  <a href="/mongoDB" class="btn btn-primary">JPA mongodb board</a><br>
+  <a href="/r2dbc" class="btn btn-primary">R2DBC mongodb board</a><br>
+  <a href="/form" class="btn btn-primary">form get post</a><br>
+  <a href="/csrf" class="btn btn-primary">csrf test page</a><br>
+  <a href="/user/sign" class="btn btn-primary">sign test page</a><br>
+  <a href="/user/login/jwt" class="btn btn-primary">jwt login test page</a><br>
+  <a href="/socket/test1" class="btn btn-primary">stomp test page1</a><br>
+  <a href="/socket/test2" class="btn btn-primary">stomp test page2</a><br>
+  <a href="/chatting" class="btn btn-primary">stomp chat</a><br>
+  <a href="/webflux/websocket" class="btn btn-primary">webclient chat</a><br>
+  <a href="/user/user" class="btn btn-primary">login check</a><br>
+  <a href="/user/admin" class="btn btn-primary">admin check</a><br>
+  <a href="/image/test" class="btn btn-primary">image upload test</a><br>
+  <a href="/image/list" class="btn btn-primary">show image in database</a><br>
+</body>
+
+</html>
