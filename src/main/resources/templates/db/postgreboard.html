@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="/postgreboard.js" ></script>
+    <title>data list</title>
+</head>
+<body>
+    <p> data list </p>
+    <p>-------------------------------------------</p>
+    <tr th:each = "test : ${testList}">
+        <a th:href="@{/postgre/{id}(id=${test.id})}" class="btn btn-primary" th:text="|${test.title}|"/>
+        <span th:text="|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writer : ${test.writer}|"></span>
+        <p>-------------------------------------------</p>    
+    </tr>
+
+    <button id="preBt" th:if= "${page != 1}">Previous</button>
+    <span th:text = "|${page} of ${totalPage}|"></span>
+    <button id="nextBt" th:if= "${page != totalPage}">Next</button>
+
+    <p>
+        정렬:
+        <select id = "sort">
+            <option value="none">---Select---</option>
+            <option>Date</option>
+            <option>Title</option>
+            <option>Writer</option>
+        </select>
+    </p>
+        <p>
+            검색:
+            <input type="text" id = "search_title" value = ""> 
+            <input value = "Search" type="submit" id = "search">
+        </p>
+        
+
+    <p> new data </p>
+        <!-- <input id = "csrf" type = "hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+        <p>제목 : <input type="text" name = "title" id = "title" value = "test title"></p>
+        <p>내용 : <input type="text" name = "data" id = "data" value = "test data"> </p>
+        <input type="submit" id = "submit">
+    <p>-------------------------------------------</p>
+    <input type="submit" id = "reset" value = "reset">
+    <p>-------------------------------------------</p>
+     
+    <a href = "/">back home</a>
+</body>
+</html> 

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const apiUrl = 'https://3.36.90.253:8090/r2dbc/mongoDB'; // API URL
     const linkList = document.getElementById('data-list'); // HTML의 <ul> 요소
+    var strurl = window.location.search;
 
     // REST API에서 데이터 가져오기
     fetch(apiUrl)

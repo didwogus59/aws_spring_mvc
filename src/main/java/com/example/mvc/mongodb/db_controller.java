@@ -45,7 +45,7 @@ public class db_controller {
 
     
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public String detail_data(@PathVariable ObjectId id, Model model) {
+    public String detail_data(@PathVariable(name = "id") ObjectId id, Model model) {
 
         mongoData detail = service.get_data(id).get();
         model.addAttribute("detail", detail);
@@ -54,7 +54,7 @@ public class db_controller {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.POST)
-    public String update_data(@PathVariable ObjectId id, @ModelAttribute mongoData test, Model model, Authentication auth) {
+    public String update_data(@PathVariable(name = "id") ObjectId id, @ModelAttribute mongoData test, Model model, Authentication auth) {
         mongoData detail;
         if(auth != null) {
             detail = service.update_data(id, test.getTitle(),test.getData(), auth.getName());
@@ -72,7 +72,7 @@ public class db_controller {
     }
 
     @RequestMapping(path = "/{id}/delete", method = RequestMethod.POST)
-    public String delete_data(@PathVariable ObjectId id, Model model, Authentication auth) {
+    public String delete_data(@PathVariable(name = "id") ObjectId id, Model model, Authentication auth) {
         if(auth != null) {
             service.delete_data(id, auth.getName());
         }
@@ -83,14 +83,14 @@ public class db_controller {
     }
     
     @RequestMapping(path = "/{id}/child", method = RequestMethod.POST)
-    public String create_child(@PathVariable ObjectId id, @RequestParam String data, Model model) {
+    public String create_child(@PathVariable(name = "id") ObjectId id, @RequestParam String data, Model model) {
         service.create_child2(id, data);
         return "redirect:/mongoDB/"+id;
     }
     
     //
     @RequestMapping(path = "/{id}/child/{child_id}/delete", method = RequestMethod.POST)
-    public String delete_child(@PathVariable ObjectId id,@PathVariable ObjectId child_id, Model model) {
+    public String delete_child(@PathVariable(name = "id") ObjectId id,@PathVariable(name = "child_id") ObjectId child_id, Model model) {
         service.delete_child(id, child_id);
         return "redirect:/mongoDB/"+id;
     }

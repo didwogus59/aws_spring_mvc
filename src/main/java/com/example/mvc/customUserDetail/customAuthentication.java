@@ -3,6 +3,7 @@ package com.example.mvc.customUserDetail;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,9 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Component
 public class customAuthentication implements Authentication {
 
     @Autowired

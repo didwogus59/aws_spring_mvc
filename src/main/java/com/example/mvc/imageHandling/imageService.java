@@ -1,11 +1,15 @@
 package com.example.mvc.imageHandling;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -15,6 +19,9 @@ public class imageService {
 
     @Autowired
     private imageRepository repo;
+
+    @Autowired
+    private GridFsTemplate gridFsTemplate;
 
     public List<IdOnly> imageList() {
         return repo.findAllBy();
@@ -53,5 +60,14 @@ public class imageService {
         }
         System.out.printf("%s\n", myType);
         return false;
+    }
+
+    public String storeImage(MultipartFile file) throws IOException {
+        DBObject metadata = new BasicDBObject();
+        metadata.put("fileSize", file.getSize());
+
+        Object fileId = gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType(), metadata);
+
+        return fileId.toString();
     }
 }

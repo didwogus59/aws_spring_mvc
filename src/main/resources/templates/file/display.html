@@ -6,6 +6,6 @@
 </head>
 <body>
     <h2>이미지 표시</h2>
-    <img  th:src="@{'data:image/jpeg;base64,'+${image}}" />
+    <img th:src = "@{/image/api/{id}(id = ${image_id})}">
 </body>
 </html>

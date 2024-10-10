@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="/postgreDetail.js" ></script>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>data detail</title>
+</head>
+<body>
+    
+    
+    <p>-------------------------------------------</p>
+
+    <p th:text="|Title : ${detail.title}|" />
+    <p>-------------------------------------------</p>    
+    <p th:text="|Data : ${detail.data}|" />
+    <p>-------------------------------------------</p>
+    <p th:text="|Writer : ${detail.writer}|" />
+    <p>-------------------------------------------</p>
+    <p> update data </p>
+        <input id = "csrf" type = "hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <p>제목 : <input type="text" name = "title" id = "update_title" value = "update title"></p>
+        <p>내용 : <input type="text" name = "data" id = "update_data" value = "update data"> </p>
+        <button id = "update_bt" type = "submit"  value="submit">update</button>
+
+    <p>-------------------------------------------</p>
+    <button id = "delete_bt" type = "submit" value="delete">Delete</button>
+
+    <p>-------------------------------------------</p> 
+    <a href = "/">back home</a>
+</body>
+</html> 

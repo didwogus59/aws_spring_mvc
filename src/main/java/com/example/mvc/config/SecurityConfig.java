@@ -1,5 +1,7 @@
 package com.example.mvc.config;
 
+import com.example.mvc.oauth2.CustomOAuth2Service;
+import com.example.mvc.oauth2.OAuth2AuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -38,13 +40,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
     )
 public class SecurityConfig {
 
-    // @Autowired
-    // private CustomOAuth2Service customoAuth2Service;
+     @Autowired
+     private CustomOAuth2Service customoAuth2Service;
     
     @Autowired
     private final jwtProvider tokenProvider;
 
-    
+    @Autowired
+    OAuth2AuthenticationSuccessHandler handler;
     @Qualifier("corsConfig")
     @Autowired
     CorsConfigurationSource corsConfig;
@@ -69,13 +72,20 @@ public class SecurityConfig {
         http.csrf((csrf) -> csrf
             .ignoringRequestMatchers(new AntPathRequestMatcher("/form/**"))
             // .ignoringRequestMatchers(new AntPathRequestMatcher("/**"))
-            .ignoringRequestMatchers(new AntPathRequestMatcher("/webclient")));
+            .ignoringRequestMatchers(new AntPathRequestMatcher("/webclient"))
+            .ignoringRequestMatchers(new AntPathRequestMatcher("/postgre/**")));
 
 
         http.headers((headers) -> headers
             .addHeaderWriter(new XFrameOptionsHeaderWriter(
                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
-        
+
+        http.oauth2Login((oauth) -> oauth
+                .loginPage("/")
+                .successHandler(handler)
+                .userInfoEndpoint((userInfoEndpoint) -> userInfoEndpoint
+                        .userService(customoAuth2Service)));
+
         return http.build();
     }
 

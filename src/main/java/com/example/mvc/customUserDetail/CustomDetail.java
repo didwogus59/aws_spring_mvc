@@ -9,8 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 // import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.example.mvc.user.user;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
-public class CustomDetail implements UserDetails{
+public class CustomDetail implements UserDetails, OAuth2User {
 // OAuth2User
     private user user = null;
     //private static final long serialVersionUID = 1L;
@@ -23,6 +24,11 @@ public class CustomDetail implements UserDetails{
     public CustomDetail(user user, Map<String, Object> attribute) {
         this.user = user;
 		this.attributes = attributes;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return Map.of();
     }
 
     // 권한 관련 작업을 하기 위한 role return
@@ -81,7 +87,12 @@ public class CustomDetail implements UserDetails{
         return true;
     }
 
-	// 리소스 서버로 부터 받는 회원정보
+    @Override
+    public String getName() {
+        return "";
+    }
+
+    // 리소스 서버로 부터 받는 회원정보
 	// @Override
 	// public Map<String, Object> getAttributes() {
 	// 	return attributes;

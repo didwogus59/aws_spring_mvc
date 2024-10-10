@@ -10,6 +10,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 @Getter
 @Setter
 @Document(collection = "image")
@@ -24,5 +30,6 @@ public class image {
     private String name;
     
     private byte[] data = null;
+
 
 }

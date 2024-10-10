@@ -1,36 +1,38 @@
 package com.example.mvc.postgreSQL;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.time.LocalDateTime;
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "spring_data")
 public class postgre_data {
 
     @Id
-    private ObjectId id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID 생성 전략 설정
+    private Long id;
 
-    private String title;
-
+    @Column(name = "data")
     private String data;
 
+    @Column(name = "title")
+    private String title;
 
-    private List<ObjectId> childs;
-
-    private String user;
+    @Column(name = "writer") // "user"를 "writer"로 변경한 경우
+    private String writer;
     
+    @Column(name = "created")
+    private LocalDateTime createdAt;
+
     public postgre_data(String title, String data, String user) {
         this.title = title;
         this.data = data;
-        this.childs = new ArrayList<ObjectId>();
-        this.user = user;
+        this.writer = user;
+        this.createdAt = LocalDateTime.now();
     }
 }
