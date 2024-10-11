@@ -4,6 +4,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +28,7 @@ public class imageService {
     public List<IdOnly> imageList() {
         return repo.findAllBy();
     }
+
     public boolean saveImage(MultipartFile file) {
         if(typeCheck(file.getOriginalFilename())) {
             image image = new image();
@@ -48,6 +51,8 @@ public class imageService {
         }
         return true;
     }
+
+    @Cacheable(value = "image", key = "#id.toString()", cacheManager = "contentCacheManager")
     public image getImage(ObjectId id) {
         return repo.findById(id).get();
     }
