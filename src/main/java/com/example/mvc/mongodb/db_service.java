@@ -18,8 +18,13 @@ import org.springframework.data.mongodb.core.query.Update;
 @Service
 @Slf4j
 public class db_service {
+
+    final private db_repository repository;
+
     @Autowired
-    private db_repository repository;
+    public db_service(db_repository repository) {
+        this.repository = repository;
+    }
 
     @Autowired
     private child_repository repositoryC;
