@@ -31,12 +31,14 @@ jobs:
       run: |
          cd ./src/main/resources
          touch ./application.properties
+         touch ./jwt.properties        
          echo "${{ secrets.PROPERTIES }}" > ./application.properties
+         echo "${{ secrets.JWT_KEY }}" > ./jwt.properties
       shell: bash
 
     - name: Decode and create keystore.p12
       env:
-        KEY_P12_BASE64: ${{ secrets.KEY_P12_BASE64 }}
+        KEY_P12_BASE64: ${{ secrets.SSL_KEY }}
       run: |
         echo -n "$KEY_P12_BASE64" | base64 --decode > keystore.p12
     # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
