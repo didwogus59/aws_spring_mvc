@@ -5,7 +5,7 @@ const [btnConnect, btnToggleVideo, btnToggleAudio, divRoomConfig, roomDiv, roomN
     "localVideo", "remoteVideo"].map(getElement);
 let remoteDescriptionPromise, roomName, localStream, remoteStream,
     rtcPeerConnection, isCaller;
-
+//
 // you can use public stun and turn servers,
 // but we don't need for local development
 const iceServers = {
