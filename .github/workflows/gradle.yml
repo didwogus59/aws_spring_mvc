@@ -41,7 +41,9 @@ jobs:
         KEY_P12_BASE64: ${{ secrets.SSL_KEY }}
       run: |
         cd ./src/main/resources
+        touch ./keystore.p12
         echo -n "$KEY_P12_BASE64" | base64 --decode > /keystore.p12
+      shell : bash
     
     - name: give permission
       run : chmod +x ./gradlew
