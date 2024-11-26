@@ -13,7 +13,7 @@
   <button id="join-btn">JOIN</button>
   <script>
     const stompClient = new StompJs.Client({
-      brokerURL: 'wss://3.36.90.253:8080/endpoint'
+      brokerURL: 'wss://'+ window.location.hostname+'/endpoint'
     });
     console.log("1");
     stompClient.onConnect = (frame) => {

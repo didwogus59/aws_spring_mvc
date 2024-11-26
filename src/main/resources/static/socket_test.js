@@ -1,5 +1,7 @@
+const baseUrl = window.location.pathname; // 현재 URL의 경로 부분
+console.log(baseUrl)
 const stompClient = new StompJs.Client({
-    brokerURL: 'wss://3.36.90.253:8080/endpoint'
+    brokerURL: 'wss://'+window.location.host+'/endpoint'
 });
 
 stompClient.onConnect = (frame) => {

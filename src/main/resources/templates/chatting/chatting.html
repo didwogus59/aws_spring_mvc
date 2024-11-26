@@ -57,7 +57,7 @@
     </div>
     <script type="text/javascript">
         const stompClient = new StompJs.Client({
-            brokerURL: 'wss://3.36.90.253:8080/endpoint'
+            brokerURL: 'wss://'+window.location.host+'/endpoint'
         });
 
         document.getElementById("join-btn").addEventListener("click", function() {

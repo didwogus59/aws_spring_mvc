@@ -59,14 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function create_Data() {
         const title = document.getElementById("title").value;
         const data = document.getElementById("data").value;
-        const csrf_name = document.getElementById("csrf").name;
-        const csrf_value = document.getElementById("csrf").value;
-        console.log(csrf_name);
-        console.log(csrf_value);
         let formData = new FormData();
         formData.append('title', title)
         formData.append('data', data);
-        formData.append(csrf_name, csrf_value);
         const urlWithoutQuery = window.location.origin + window.location.pathname;
 
         fetch(urlWithoutQuery, {
@@ -75,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             body: formData
         })
             .then(res => {
-                // location.reload()
+                location.reload()
             });
     }
 

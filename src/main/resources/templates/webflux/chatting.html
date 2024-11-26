@@ -22,7 +22,7 @@
     </div>
 </div>
 <script>
-    const chatWebSocket = new WebSocket("wss://3.36.90.253:8090/wschat");
+    const chatWebSocket = new WebSocket("wss://"+window.location.hostname+":8090/wschat");
 
     const inputMessage = document.getElementById('inputMessage');
     const messageList = document.getElementById('message-list');

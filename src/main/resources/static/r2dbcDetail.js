@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const id = document.getElementById('id').value;
-    const apiUrl = 'https://3.36.90.253:8090/r2dbc/mongoDB/'; // API URL
+    const apiUrl = 'https://' + window.location.hostname+':8090/r2dbc/mongoDB/'; // API URL
     const childList = document.getElementById('child-list'); // HTML의 <ul> 요소
     // REST API에서 데이터 가져오기
     fetch(apiUrl + id)
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             credentials: 'include',
         })
             .then(res => {
-                location.replace("https://3.36.90.253:8080/r2dbc");
+                location.replace('https://' + window.location.hostname+'/r2dbc');
             });
     }
 });

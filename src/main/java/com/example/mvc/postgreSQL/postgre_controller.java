@@ -51,7 +51,7 @@ public class postgre_controller {
         
         Pageable pageable;
         if(sort != null) {
-            Sort sorting = Sort.by(Sort.Order.asc(sort[0]));
+            Sort sorting = Sort.by(Sort.Order.desc(sort[0]));
             pageable = PageRequest.of(page, size, sorting);
         }
         else

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const apiUrl = 'https://3.36.90.253:8090/r2dbc/mongoDB'; // API URL
+    const apiUrl = 'https://' + window.location.hostname+':8090/r2dbc/mongoDB'; // API URL
     const linkList = document.getElementById('data-list'); // HTML의 <ul> 요소
     var strurl = window.location.search;
 
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const link = document.createElement('a');
                 const line = document.createElement('a');
                 line.textContent = '-------------------------------------------';
-                link.href = "https://3.36.90.253:8080/r2dbc/" + item.id; // 링크의 URL
+                link.href = 'https://' + window.location.hostname+'/r2dbc/' + item.id; // 링크의 URL
                 link.textContent = item.title; // 링크의 텍스트
                 // link.target = '_blank'; // 새 탭에서 열리도록 설정
                 listItem.appendChild(link);
