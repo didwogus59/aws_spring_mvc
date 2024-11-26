@@ -38,7 +38,7 @@ out/
 
 *.properties
 
-*.jar
+#*.jar
 
 /docker
 docker/
