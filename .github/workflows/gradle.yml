@@ -82,6 +82,6 @@ jobs:
               sudo docker stop mvccon
               sudo docker rm $CONTAINER_ID
             fi
-            
+            sudo docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/server:springmvc
             sudo docker run --name mvccon -d -p 8080:8080 -e TZ=Asia/Seoul --add-host host.docker.internal:host-gateway ${{ secrets.DOCKERHUB_USERNAME }}/server:springmvc
