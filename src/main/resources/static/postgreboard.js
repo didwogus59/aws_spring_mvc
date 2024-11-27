@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const baseUrl = window.location.pathname; // 현재 URL의 경로 부분
         const params = getParamsFromUrl(); // 현재 쿼리 매개변수 가져오기
         params.set('title', title);
+        params.set('page', 0);
         // 새 URL 생성
         const newUrl = `${baseUrl}?${params.toString()}`;
         window.location.href = newUrl; // 새 URL로 이동
