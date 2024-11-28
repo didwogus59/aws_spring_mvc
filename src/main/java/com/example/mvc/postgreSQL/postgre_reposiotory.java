@@ -21,7 +21,11 @@ public interface postgre_reposiotory extends JpaRepository<postgre_data, Long> {
     // @SuppressWarnings("null")
     // Page<postgre_data> findAllByTitle(Pageable pageable);
 
-    @Query("select data from postgre_data data where (:title is null or data.title Like %:title%)")
+    @Query("select data from postgre_data data where :title is null or data.title Like %:title%")
     @SuppressWarnings("null")
     Page<postgre_data> findAllByTitle(Pageable pageable, @Param("title") String title);
+
+    @Query("select new com.example.mvc.postgreSQL.nodata_dto(data.id, data.title) from postgre_data data")
+    List<nodata_dto> findAllNoData();
+
 }

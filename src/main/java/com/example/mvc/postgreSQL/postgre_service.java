@@ -41,7 +41,8 @@ public class postgre_service {
 
     public postgre_data create_data(postgre_data data, String user) {
         data.setWriter(user);
-        return repo.save(data);
+        postgre_data tmp = new postgre_data(data.getTitle(),data.getData(),user);
+        return repo.save(tmp);
     }
 
     public void delete_data(Long id, String writer) {

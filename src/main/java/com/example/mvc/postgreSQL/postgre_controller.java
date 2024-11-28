@@ -1,5 +1,7 @@
 package com.example.mvc.postgreSQL;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.bson.types.ObjectId;
@@ -45,23 +47,38 @@ public class postgre_controller {
         @RequestParam(name = "title", required = false) String title,
         @RequestParam(name = "page", defaultValue = "0") int page,
         @RequestParam(name = "size", defaultValue = "5") int size,
-        @RequestParam(name = "sort", defaultValue = "createdAt") String[] sort,
+        @RequestParam(name = "sort", defaultValue = "createdAt") String[] sorts,
         Model model
     ) {
         
-        Pageable pageable;
-        if(sort != null) {
-            Sort sorting = Sort.by(Sort.Order.desc(sort[0]));
-            pageable = PageRequest.of(page, size, sorting);
+
+//        if(sort != null) {
+//            Sort sorting;
+//            //날짜는 내림차순을 이용해 최신순으로 작성자랑 타이틀은 오름차순을 이용해 사전순으로
+//            if(sort[0].equals("createdAt"))
+//                sorting = Sort.by(Sort.Order.desc(sort[0]));
+//            else
+//                sorting = Sort.by(Sort.Order.asc(sort[0]));
+//            pageable = PageRequest.of(page, size, sorting);
+////        }
+//        else
+//            pageable = PageRequest.of(page, size);
+        List<Sort.Order> orders = new ArrayList<>();
+        for(String sort : sorts) {
+            if(sort.equals("createdAt")) {
+                orders.add(Sort.Order.desc(sort));
+            }
+            else
+                orders.add(Sort.Order.asc(sort));
         }
-        else
-            pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orders));
         Page<postgre_data> dataPage = service.all_data2(pageable, title);
         int totalPage = dataPage.getTotalPages();
         page++;
         if(page > totalPage) {
             page = totalPage;
         }
+
         model.addAttribute("testList", dataPage);
         model.addAttribute("page", page);
         model.addAttribute("totalPage", totalPage);

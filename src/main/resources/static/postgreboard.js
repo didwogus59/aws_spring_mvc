@@ -48,6 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
         else if(sort.value == 'Writer') {
             params.set('sort', 'writer');
         }
+        else {
+            params.set('sort', 'createdAt');
+        }
         // 새 URL 생성
         const newUrl = `${baseUrl}?${params.toString()}`;
         window.location.href = newUrl; // 새 URL로 이동
