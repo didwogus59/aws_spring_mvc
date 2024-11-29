@@ -31,17 +31,17 @@ public class postgre_service {
 
     //{#id, #createdAt.toEpochSecond()}"
     @Cacheable(value = "board", key = "#id", cacheManager = "contentCacheManager")
-    public postgre_data get_data(Long id) {
+    public data_dto get_data(Long id) {
         Optional<postgre_data> tmp = repo.findById(id);
         if(tmp.get() == null) {
             return null;
         } 
-        return tmp.get();
+        return tmp.get().getDto();
     }
 
-    public postgre_data create_data(postgre_data data, String user) {
+    public postgre_data create_data(data_dto data, String user) {
         data.setWriter(user);
-        postgre_data tmp = new postgre_data(data.getTitle(),data.getData(),user);
+        postgre_data tmp = new postgre_data(data);
         return repo.save(tmp);
     }
 
@@ -51,11 +51,11 @@ public class postgre_service {
 
     @Transactional
     @CacheEvict(value = "board", key="#id", cacheManager = "contentCacheManager")
-    public postgre_data update_data(Long id, String title, String data) {
+    public data_dto update_data(Long id, data_dto data) {
         postgre_data update = repo.findById(id).get();
-        update.setData(data);
-        update.setTitle(title);
+        update.setData(data.getData());
+        update.setTitle(data.getTitle());
         update.setCreatedAt(LocalDateTime.now());
-        return update;
+        return update.getDto();
     }
 }

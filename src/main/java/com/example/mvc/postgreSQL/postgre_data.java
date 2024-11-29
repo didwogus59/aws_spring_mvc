@@ -35,4 +35,15 @@ public class postgre_data {
         this.writer = user;
         this.createdAt = LocalDateTime.now();
     }
+
+    public postgre_data(data_dto dto) {
+        this.title = dto.getTitle();
+        this.data = dto.getData();
+        this.writer = dto.getWriter();
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public data_dto getDto() {
+        return new data_dto(this);
+    }
 }
