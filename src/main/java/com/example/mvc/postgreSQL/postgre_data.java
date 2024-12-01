@@ -1,5 +1,7 @@
 package com.example.mvc.postgreSQL;
 
+import com.example.mvc.postgreSQL.dto.create_dto;
+import com.example.mvc.postgreSQL.dto.data_dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,5 +47,12 @@ public class postgre_data {
 
     public data_dto getDto() {
         return new data_dto(this);
+    }
+
+    public postgre_data(create_dto dto, String user) {
+        this.title = dto.getTitle();
+        this.data = dto.getData();
+        this.writer = user;
+        this.createdAt = LocalDateTime.now();
     }
 }

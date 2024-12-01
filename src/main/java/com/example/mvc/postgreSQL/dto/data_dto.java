@@ -1,5 +1,6 @@
-package com.example.mvc.postgreSQL;
+package com.example.mvc.postgreSQL.dto;
 
+import com.example.mvc.postgreSQL.postgre_data;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

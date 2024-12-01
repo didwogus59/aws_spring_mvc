@@ -2,7 +2,11 @@ package com.example.mvc.postgreSQL;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import com.example.mvc.postgreSQL.dto.board_dto;
+import com.example.mvc.postgreSQL.dto.create_dto;
+import com.example.mvc.postgreSQL.dto.data_dto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,12 +33,6 @@ public class postgre_controller {
     @Autowired
     postgre_service service;
 
-    // @GetMapping("")
-    // public String main_board(@RequestParam(name = "title", required = false) String title, Model model) {
-    //     model.addAttribute("testList", service.all_data(title));
-    //     return "db/postgreboard";
-    // }
-    
     @GetMapping("")
     public String main_board_page(
         @RequestParam(name = "title", required = false) String title,
@@ -53,12 +51,13 @@ public class postgre_controller {
                 orders.add(Sort.Order.asc(sort));
         }
         Pageable pageable = PageRequest.of(page, size, Sort.by(orders));
-        Page<postgre_data> dataPage = service.all_data2(pageable, title);
+        Page<board_dto> dataPage = service.all_data2(pageable, title);
         int totalPage = dataPage.getTotalPages();
         page++;
         if(page > totalPage) {
             page = totalPage;
         }
+
         model.addAttribute("testList", dataPage);
         model.addAttribute("page", page);
         model.addAttribute("totalPage", totalPage);
@@ -67,15 +66,14 @@ public class postgre_controller {
         return "db/postgreboard";
     }
     @RequestMapping(method = RequestMethod.POST)
-    public String create_data(@ModelAttribute data_dto data, Model model, Authentication auth) {
+    public String create_data(@ModelAttribute create_dto data, Model model, Authentication auth) {
         if(auth != null) {
             service.create_data(data, auth.getName());
         }
         else {
-            service.create_data(data, "null");
+            service.create_data(data, null);
         }
-        model.addAttribute("testList", service.all_data(null));
-        return "db/postgreboard";
+        return "redirect:/postgre";
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
@@ -88,10 +86,13 @@ public class postgre_controller {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.POST)
-    public String update_data(@PathVariable(name = "id") Long id, @ModelAttribute data_dto data, Model model) {
+    public String update_data(@PathVariable(name = "id") Long id, @ModelAttribute data_dto data, Model model,Authentication auth) {
         log.info("in update");
-        data_dto detail = service.update_data(id, data);
-
+        data_dto detail;
+        if(auth != null)
+            detail  = service.update_data(id, data,auth.getName());
+        else
+            detail  = service.update_data(id, data,null);
         model.addAttribute("detail", detail);
         return "db/postgreDetail";
     }
@@ -104,27 +105,27 @@ public class postgre_controller {
             service.delete_data(id, auth.getName());
         }
         else {
-            service.delete_data(id, "null");
+            service.delete_data(id, null);
         }
-        return "redirect:/mongoDB";
+        return "redirect:/postgre";
     }
     
-    // @GetMapping("/testcase")
-    // public String getMethodName() {
-    //     Random random = new Random();
-    //     String[] name = {"1111","2222","3333","4444"};
-    //     for(int i = 0; i < 4; i++) {
-            
-    //         for(int j = 0; j < 20; j++) {
-    //             String tmp = "";
-    //             for(int p = 0; p < 5; p++) {
-    //                 tmp += (char)('a' + random.nextInt(26));
-    //             }
-    //             postgre_data data = new postgre_data(tmp, "sample", null);
-    //             service.create_data(data, name[i]);
-    //         }
-    //     }
-    //     return "home";
-    // }
-    
+//     @GetMapping("/testcase")
+//     public String getMethodName() {
+//         Random random = new Random();
+//         String[] name = {null,"1111","2222","3333","4444"};
+//         for(int i = 0; i < 5; i++) {
+//
+//             for(int j = 0; j < 2000; j++) {
+//                 String tmp = "";
+//                 for(int p = 0; p < 5; p++) {
+//                     tmp += (char)('a' + random.nextInt(26));
+//                 }
+//                 create_dto data = new create_dto(tmp, "sample");
+//                 service.create_data(data, name[i]);
+//             }
+//         }
+//         return "home";
+//     }
+//
 }
